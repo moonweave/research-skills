@@ -9,6 +9,8 @@ The failure this skill prevents: a paper states a result in the abstract or resu
 
 The core rule, parallel to citation verification: every numerical value you report from a figure must be read from the actual image you can see — not recalled from training data, not inferred from the paper's reputation, not estimated from the figure caption alone.
 
+> **Maturity note:** The reading-precision of the image (VLM) path depends heavily on figure resolution and on the host model's vision capability. Reading a value off a dense plot is inherently approximate — prefer `APPROXIMATE` with a stated precision over `MATCH` unless the value is unambiguous. When a figure is too low-resolution or cluttered to read confidently, `UNREADABLE` is the correct, honest answer.
+
 ---
 
 ## What you need to run a check
@@ -139,6 +141,6 @@ If the paper is open access, attempt to locate the figure:
 
 1. **arXiv**: `https://arxiv.org/abs/{arxiv_id}` — HTML version often has inline figures; PDF can be fetched at `https://arxiv.org/pdf/{arxiv_id}`
 2. **PubMed Central**: `https://pmc.ncbi.nlm.nih.gov/articles/{PMCID}/` — figures often embedded in HTML
-3. **Unpaywall**: `https://api.unpaywall.org/v2/{DOI}?email=verify@figure-verifier.local` — check for OA PDF
+3. **Unpaywall**: `https://api.unpaywall.org/v2/{DOI}?email={user_email}` — check for OA PDF. Unpaywall requires a real email; ask the user for theirs rather than using a placeholder.
 
 If no open-access version is available, tell the user which figure to provide and what claim you'll verify against it. Do not attempt to reconstruct or describe a figure you haven't seen.

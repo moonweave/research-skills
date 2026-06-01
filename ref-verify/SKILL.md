@@ -85,7 +85,7 @@ This is where the skill's core value lies. The goal is not just "does this paper
 Fetch the abstract using this priority order:
 1. CrossRef raw JSON: `https://api.crossref.org/works/{DOI}` — check the `abstract` field
 2. Semantic Scholar: append `&fields=abstract` to your S2 DOI lookup
-3. Open-access fallback: `https://api.unpaywall.org/v2/{DOI}?email=verify@ref-verify.local` — check `is_oa` and `oa_locations`
+3. Open-access fallback: `https://api.unpaywall.org/v2/{DOI}?email={user_email}` — check `is_oa` and `oa_locations`. Unpaywall requires a real, valid email; ask the user for theirs once and reuse it. A placeholder address may be rejected or rate-limited.
 4. arXiv fallback for preprints: `https://export.arxiv.org/api/query?id_list={arxiv_id}`
 5. PubMed Central for life/bio papers: `https://www.ncbi.nlm.nih.gov/pmc/articles/{PMCID}/`
 
@@ -97,6 +97,8 @@ After fetching, check: does the abstract contain the specific claim being cited?
 - Abstract not accessible after trying all 5 sources → `CONTENT: UNVERIFIABLE — user must check full text`
 
 **The rule that cannot be relaxed**: if you describe what a paper "shows" or "demonstrates" or "reports," you must quote or directly paraphrase the fetched abstract text. Summarizing from memory is not permitted even if you feel confident.
+
+**Scope limit — know where this degrades**: many journals deposit no abstract in CrossRef or S2, and paywall it everywhere else. This is common in materials science, polymer, and engineering venues (Smart Materials and Structures, Sensors and Actuators A, etc.). For these papers the content layer legitimately ends at `UNVERIFIABLE` — that is the skill working correctly, not failing. Existence, metadata, and DOI resolution still verify; only the content claim cannot. Tell the user plainly that the abstract is not openly available and they must check the full text, rather than implying the citation is fully cleared.
 
 **Layer 4 — DOI Resolution**
 

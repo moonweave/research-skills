@@ -2,7 +2,7 @@
 
 AI agent skills for academic researchers. Install individually or all at once.
 
-Each skill is a verified, tested tool that fills a gap not covered by existing research software.
+Each skill targets a gap not covered by existing research software. Skills were checked on a handful of real-paper test cases during development (illustrative, not a controlled benchmark — see [Evaluation notes](#evaluation-notes)).
 
 ---
 
@@ -56,7 +56,7 @@ npx skills add moonweave/research-skills@arxiv-monitor -g
 ---
 
 ### figure-verifier — Text-vs-figure claim verification
-**Status: stable (v1.0.0)**
+**Status: beta (v1.0.0)** — workflow and structured verdicts are solid; the figure-*image* reading path (VLM precision on dense plots) is resolution-dependent and under-tested. Treat readings as approximate.
 
 Reads numerical values from scientific figures, then cross-checks them against quantitative claims in the paper's text. Flags discrepancies, wrong figure pointers (value cited in the wrong figure number), and characterizes whether a figure is quantitative or photographic before reading.
 
@@ -108,6 +108,19 @@ All skills in this collection follow the same rules:
 2. **Explicit uncertainty** — if something can't be verified, it says so instead of guessing
 3. **Narrow scope** — each skill does one thing well; no feature creep
 4. **Evidence in output** — every verdict includes the source and evidence that produced it
+
+---
+
+## Evaluation notes
+
+Honesty about what the testing does and doesn't show:
+
+- Each skill was checked against a no-skill baseline on **3 illustrative test cases** during development. This is **not a controlled benchmark** — it's n=1 per case, and run-to-run variance is real (contradiction-finder produced opposite verdicts on two runs of the same baseline).
+- The measured advantage is mostly **consistency and structured output** — the skill reliably applies the same discipline (verbatim sourcing, explicit uncertainty, conflict taxonomy) where an unaided model is hit-or-miss. There are some genuine capability catches (e.g. ref-verify flagging abstract content an unaided model embellished), but the suite's main value is reproducible discipline, not catching errors the base model never could.
+- **figure-verifier's image-reading path is under-tested.** Development test cases largely resolved via paper text/captions rather than reading values off a plot image. Treat figure-image precision as approximate and resolution-dependent.
+- **Content verification degrades to UNVERIFIABLE where abstracts aren't openly deposited** — common in materials/polymer/engineering journals. The skills report this honestly rather than guessing, but it means the content layer is weakest in exactly those fields.
+
+If you want a defensible comparison for your own use, re-run with skills uninstalled for the baseline and ≥3 runs per case, scoring on outcome rather than output format.
 
 ---
 
