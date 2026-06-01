@@ -1,0 +1,43 @@
+{
+  "skill_name": "contradiction-finder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Find contradictions between these 3 IPMC papers: DOI 10.1088/0964-1726/10/4/327 (Shahinpoor & Kim 2001), DOI 10.1063/1.1495888 (Nemat-Nasser 2002), DOI 10.1016/j.sna.2007.01.021 (Kim & Shahinpoor 2007). I want to know if they agree on the actuation mechanism.",
+      "expected_output": "Abstracts fetched from CrossRef/S2. Atomic claims extracted about actuation mechanism from each paper. Pairwise comparison identifying whether the papers agree or conflict on the primary mechanism (ion migration vs electroosmotic water flow vs combined). Any genuine contradictions shown with verbatim evidence. Papers that address different aspects labeled as SCOPE rather than DIRECT.",
+      "files": [],
+      "expectations": [
+        "Abstracts fetched from live sources (CrossRef or S2) — not recalled from memory",
+        "Atomic claims extracted from each paper with verbatim excerpts",
+        "Pairwise comparison performed — not just separate summaries of each paper",
+        "Conflict type labeled (DIRECT, QUANTITATIVE, or SCOPE) for each finding",
+        "Summary section with count of HIGH/MEDIUM/LOW conflicts"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Search for papers on 'IPMC actuation mechanism' and find any contradictions about whether cation migration or water transport is the primary driver of bending.",
+      "expected_output": "Search performed via Semantic Scholar or arXiv. Top papers fetched. Claims extracted specifically about actuation mechanism. Any genuine controversy between cation-migration-primary vs water-transport-primary camps identified with evidence. Papers that distinguish both contributions labeled as SCOPE.",
+      "files": [],
+      "expectations": [
+        "Search was actually performed (not papers recalled from memory)",
+        "At least 3 papers found and compared",
+        "The specific debate about cation migration vs water transport is addressed",
+        "Claims supporting each position shown with verbatim quotes",
+        "Most contested claim identified in summary"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "These two claims come from different papers. Are they a real contradiction or just different contexts? Claim A: 'IPMC actuators lose 80% of their blocking force within 500 cycles in air'. Claim B: 'Ionic liquid-based IPMC shows stable actuation over 180,000 cycles in air with no significant force degradation'.",
+      "expected_output": "SCOPE conflict identified (not DIRECT) — Claim A is about Nafion+water IPMCs, Claim B is about ionic liquid-based IPMCs. Different material systems = not a genuine contradiction. Skill should correctly classify this as SCOPE with explanation that boundary condition (ionic liquid vs water) explains the difference.",
+      "files": [],
+      "expectations": [
+        "Conflict type identified as SCOPE (not DIRECT or QUANTITATIVE)",
+        "Explanation notes that the two claims use different material systems (water-based vs ionic liquid-based)",
+        "Output does not label this a 'contradiction' without qualification",
+        "Suggests what would make this a genuine contradiction (same ionic liquid, same conditions)"
+      ]
+    }
+  ]
+}
