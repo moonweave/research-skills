@@ -41,44 +41,60 @@ npx skills add moonweave/research-skills@ref-verify -g
 ---
 
 ### arxiv-monitor — Daily arXiv briefing
-**Status: planned**
+**Status: stable (v1.0.0)**
 
-Scheduled monitoring of new arXiv papers by keyword and author watchlist. LLM-based relevance scoring. Routable output to Slack, Obsidian, Telegram, or email. Built for Claude Code Routines.
+Scheduled monitoring of new arXiv papers by keyword and author watchlist. LLM-based relevance scoring (1-5 tiers). Routable output to Slack, Obsidian, Telegram, or file. Built for Claude Code Routines. Auto-detects low-arXiv-coverage domains and falls back to Semantic Scholar.
 
 **Why build this:** Scholar Inbox handles passive email digests well. The gap is agent-native monitoring with custom filtering and routing that connects directly to your research workflow.
+
+```bash
+npx skills add moonweave/research-skills@arxiv-monitor -g
+```
 
 → [SKILL.md](arxiv-monitor/SKILL.md)
 
 ---
 
 ### figure-verifier — Text-vs-figure claim verification
-**Status: planned**
+**Status: stable (v1.0.0)**
 
-Extracts numerical values from scientific figures using a vision model, then cross-checks them against quantitative claims in the paper's text and abstract. Flags discrepancies: "abstract says 30% strain, Figure 3 shows 18%."
+Reads numerical values from scientific figures, then cross-checks them against quantitative claims in the paper's text. Flags discrepancies, wrong figure pointers (value cited in the wrong figure number), and characterizes whether a figure is quantitative or photographic before reading.
 
 **Why build this:** WebPlotDigitizer and PlotPick extract data from figures. No existing tool — anywhere — verifies whether a paper's stated results are actually supported by its own figures. This is the figure equivalent of what ref-verify does for citations.
+
+```bash
+npx skills add moonweave/research-skills@figure-verifier -g
+```
 
 → [SKILL.md](figure-verifier/SKILL.md)
 
 ---
 
 ### contradiction-finder — Cross-paper conflict detection
-**Status: planned**
+**Status: stable (v1.0.0)**
 
-Takes a set of papers (by DOI or search query), extracts atomic claims from abstracts, compares them pairwise, and surfaces conflicts with verbatim evidence quotes from each source. Works across all domains.
+Takes a set of papers (by DOI or search query), extracts atomic claims from abstracts, compares them pairwise, and surfaces conflicts (DIRECT / QUANTITATIVE / SCOPE) with verbatim evidence. Its core discipline: it does not infer a contradiction from a claim a paper's abstract doesn't actually make.
 
 **Why build this:** Scite detects contradictions at the citation-graph level but only reactively (you supply the claim). Elicit shows divergent values but doesn't call them out as conflicts. No tool proactively maps contradictions from a paper set.
+
+```bash
+npx skills add moonweave/research-skills@contradiction-finder -g
+```
 
 → [SKILL.md](contradiction-finder/SKILL.md)
 
 ---
 
 ### nrf-grant — NRF 연구계획서 작성
-**Status: planned**
+**Status: stable (v1.0.0)**
 
-한국연구재단(NRF) 연구계획서 작성 전용 스킬. 연구목표·연구내용·기대효과 섹션 구조, 우수성·필요성·활용방안 프레임, IRIS/ERND 템플릿 형식, 한국어 출력 지원.
+한국연구재단(NRF) 연구계획서 작성 전용 스킬. 필요성·연구내용·활용방안 섹션 구조, 우수성·필요성·실현가능성·활용방안 4대 심사기준 정렬, 한국어 학술 문체, 과제 유형별(신진/중견/선도연구센터/BK21) 특이사항 반영.
 
 **Why build this:** NSF/NIH용 AI 도구는 포화 상태. NRF 형식을 지원하는 도구는 전 세계에 없음.
+
+```bash
+npx skills add moonweave/research-skills@nrf-grant -g
+```
 
 → [SKILL.md](nrf-grant/SKILL.md)
 
