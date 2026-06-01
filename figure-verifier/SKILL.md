@@ -43,7 +43,13 @@ Extract every quantitative claim that references a figure. Ask the user which on
 
 ### Step 2 — Read the figure
 
-Look at the provided image and systematically extract:
+**You must read the actual image, not the caption.** Fetching an arXiv/PMC HTML page returns text and captions — that is NOT reading the figure. The caption saying "Fig 3: 12% deflection" is exactly the claim you are checking; echoing it back is circular and proves nothing. To genuinely read a figure you must download the raster image (PNG/JPG) and open it with the Read tool so you see pixels. For arXiv, figure images are at predictable paths like `https://arxiv.org/html/{id}/x3.png` — download then Read. If you cannot obtain the image binary, you cannot do a figure verification; say so and ask the user to paste the image.
+
+To make text-masquerade detectable, every verdict card must include a **proof-of-vision detail** — something visible only in the image, not in the caption: the number of data series, the color/style of the relevant curve, marker shapes, gridline spacing, where the curve sits relative to gridlines. If you cannot supply such a detail, you did not actually read the image, and the verdict must be `UNREADABLE`.
+
+Read the value off the axes first and write it down *before* comparing to the claimed number. You already know the claimed value from Step 1 — guard against unconsciously reading the figure to match it. If your read lands suspiciously exactly on the claimed value, re-read against the gridlines to confirm it isn't anchoring.
+
+Look at the image and systematically extract:
 
 1. **Axis labels and units** — what physical quantity is on each axis? What are the units?
 2. **Axis scale and range** — linear or log? What are the min/max values? Are there breaks?
@@ -77,6 +83,9 @@ Claim:    "[exact quote from paper text]"
 Figure:   Fig. [N] — [brief description of what the figure shows]
 Condition: [x-axis value or experimental condition being checked]
 
+Image source: [local path or URL of the raster actually opened with Read]
+Proof of vision: [a detail only visible in the image — e.g. "3 curves, the IN-FOAM curve is dashed blue, peaks just above the 40% gridline"]
+
 Figure reading:
   x-axis: [label] ([units]), range [min]–[max], [linear/log] scale
   y-axis: [label] ([units]), range [min]–[max], [linear/log] scale
@@ -91,6 +100,10 @@ VERDICT: MATCH | APPROXIMATE (±X%) | MISMATCH | UNREADABLE
 Notes: [what limits confidence, alternative readings, context]
 ────────────────────────────────────────────────
 ```
+
+If the "Image source" and "Proof of vision" lines cannot be filled with a genuinely-read raster, the verdict is `UNREADABLE` — do not emit MATCH/APPROXIMATE/MISMATCH from caption text alone.
+
+**Log and broken axes**: the ~5%/~15% MATCH/APPROXIMATE bands below are *positional* (fraction of axis length). On a log axis, a small positional error is a large multiplicative error — recalibrate to the value ratio, not pixel position, and widen the uncertainty. On a broken axis, never interpolate across the break.
 
 For multiple claims from the same paper, produce one card per claim then a summary:
 

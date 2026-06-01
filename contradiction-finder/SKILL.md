@@ -22,6 +22,8 @@ Example: A says "the primary mechanism is cation migration"; B says "the primary
 Example: A reports "blocking force of 0.3 mN at 3V"; B reports "blocking force of 2.1 mN at 3V" for the same material class.
 Note: values differing by ≤20% may reflect measurement uncertainty rather than genuine conflict — flag but note this.
 
+Before comparing quantities, normalize units and recognize synonymous quantities — otherwise you will miss real conflicts whenever two groups use different nomenclature (the most important case to catch). Convert to a common unit ("30 µN" = "0.03 mN") and map terms that name the same physical quantity ("blocking force" / "tip force"; "strain" / "tip deflection" / "bending angle" are related but NOT identical — only treat as comparable if they measure the same thing). If two papers appear to disagree but use different quantity names, state the mapping you applied so the user can check it.
+
 **SCOPE** — A makes a general claim; B shows it holds only under specific conditions, or vice versa.
 Example: A says "IPMC actuators degrade in air"; B says "ionic liquid-based IPMCs operate stably in air for 180,000 cycles."
 This is often not a true contradiction but a boundary condition — note this distinction.
@@ -32,7 +34,11 @@ What is NOT a contradiction:
 - Papers from different eras where the later one has better data
 - Disagreement about interpretation while agreeing on the data
 
-When in doubt between SCOPE and DIRECT, prefer SCOPE — methodological differences explain more than they appear to.
+**Do not default to SCOPE.** It is tempting to explain away every conflict as "maybe different conditions" — but that bias turns this tool into one that reports "no contradictions found" for a genuinely contested field, defeating its purpose. Apply this guardrail:
+
+- If both papers address the **same material system, same measured quantity, and comparable conditions**, and their claims oppose → this is DIRECT or QUANTITATIVE, **not** SCOPE. The same-system + same-quantity match overrides any speculative "could be methodology" explanation.
+- Only classify as SCOPE when there is a **concrete, identifiable** boundary-condition difference (named different material, explicitly different test environment, different scale) — not a hypothetical one you invented to dissolve the conflict.
+- The "Could explain" field in the output is for genuine, checkable hypotheses — not for manufacturing excuses to downgrade every conflict. If you cannot name a specific difference, do not invent one; report the conflict at its real severity.
 
 ---
 
@@ -44,7 +50,7 @@ When in doubt between SCOPE and DIRECT, prefer SCOPE — methodological differen
 
 **If search query provided**: Search arXiv and Semantic Scholar for the topic, fetch top 6-8 papers sorted by citation count (established papers are more likely to represent real positions in a debate). Fetch abstracts.
 
-Limit: 8 papers maximum. Beyond this, the pairwise comparison becomes unwieldy (28 pairs for 8 papers). If more papers are provided, ask the user to select the most representative ones.
+Limit: 8 papers maximum. Pairwise comparison scales as N(N-1)/2 — 6 papers = 15 pairs, 8 papers = 28 pairs. A full 8-paper analysis can take 15-20+ minutes. **Warn the user of the expected time before starting** a set of 6+ papers, and offer a faster triage: first cluster claims by topic, then only compare within clusters (papers about different quantities rarely conflict). If more than 8 papers are provided, ask the user to select the most representative ones.
 
 ### Step 2 — Extract atomic claims
 
