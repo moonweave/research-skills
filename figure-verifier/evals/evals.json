@@ -1,0 +1,44 @@
+{
+  "skill_name": "figure-verifier",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Check this claim from arXiv paper 2603.15066 (Multi-Mode Pneumatic Artificial Muscles): 'The linear IN-FOAM achieves a maximum contraction ratio of ~43%'. Fetch Figure 2 from https://arxiv.org/html/2603.15066v1 and verify whether the figure supports this specific value for IN-FOAM.",
+      "expected_output": "MATCH verdict. Agent fetches the figure from arXiv HTML, reads the contraction ratio axis for IN-FOAM, reports the read value (~43%), compares against claim, and produces a structured verification card. Every number must come from the actual figure, not recalled from training.",
+      "files": [],
+      "expectations": [
+        "Figure was actually fetched from the arXiv URL — not described from memory",
+        "Output specifies which axis was read and what scale it uses",
+        "Read value for IN-FOAM is reported with how it was extracted from the figure",
+        "Verdict field is present (MATCH, APPROXIMATE, MISMATCH, or UNREADABLE)",
+        "Output does not guess values without stating they came from the figure"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Verify this claim from arXiv paper 2603.15066: 'The IN-FOAM achieves a maximum contraction ratio of 28%'. Fetch Figure 2 from https://arxiv.org/html/2603.15066v1 and check if this is correct.",
+      "expected_output": "MISMATCH verdict. The 28% value belongs to Pouch Motor, not IN-FOAM. The skill should read the figure, identify the IN-FOAM curve/bar, read its actual value (~43%), and flag that the claimed 28% does not match what the figure shows for IN-FOAM. This is the most important eval — baseline will likely just describe the figure without catching the specific wrong-actor mismatch.",
+      "files": [],
+      "expectations": [
+        "Figure was fetched from arXiv URL",
+        "Skill identifies which data series corresponds to IN-FOAM specifically (not just any bar)",
+        "Skill reads IN-FOAM value as different from the claimed 28%",
+        "Verdict is MISMATCH (not MATCH)",
+        "Output states what value the figure actually shows for IN-FOAM and what 28% corresponds to if identifiable"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Check this claim from arXiv paper 2604.24140: 'The first resonance mode appears at approximately 390 Hz for the 100 μm membrane with 10% prestrain'. Fetch Figure 9 from https://arxiv.org/html/2604.24140v1 and verify.",
+      "expected_output": "MATCH or APPROXIMATE verdict. Agent fetches Figure 9, reads the frequency axis, identifies the first resonance peak for the 100μm/10% prestrain condition, and reports the read value. If the figure shows ~390 Hz, MATCH. If close but axis precision limits exact reading, APPROXIMATE with stated uncertainty.",
+      "files": [],
+      "expectations": [
+        "Figure was fetched from arXiv URL",
+        "Agent correctly identifies what 'first resonance mode' means in the context of the figure (first peak in frequency spectrum)",
+        "Agent reports the frequency value read from the figure with units (Hz)",
+        "Verdict appropriately reflects match quality (MATCH or APPROXIMATE with uncertainty noted)",
+        "If multiple conditions are shown, agent identifies the 100μm/10% prestrain curve specifically"
+      ]
+    }
+  ]
+}
