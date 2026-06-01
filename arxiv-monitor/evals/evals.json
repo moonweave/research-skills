@@ -1,0 +1,42 @@
+{
+  "skill_name": "arxiv-monitor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Check arXiv for new papers this week on ionic polymer actuators and dielectric elastomers. My research focus is IPMC actuators based on Nafion with strain output and blocking force performance. Lookback 7 days.",
+      "expected_output": "Structured digest with papers scored 1-5 by relevance to IPMC/Nafion research. Each entry shows title, authors, arXiv ID, abstract highlight, and why-relevant explanation. Summary line with paper counts. Papers scored 1 discarded. Uses actual arXiv API, not recalled paper list.",
+      "files": [],
+      "expectations": [
+        "arXiv API was queried — output shows papers submitted within the last 7 days (dates visible in entries)",
+        "Papers are scored 1-5 with explicit relevance tier",
+        "Each entry includes a 'Why relevant' explanation specific to IPMC/Nafion research focus",
+        "Papers scoring 1 are filtered out — not shown in digest",
+        "Summary count line present at the end"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Check arXiv for papers on soft actuators from the last 3 days. My focus is wearable soft robotics using electroactive polymers. Also track papers by author 'Carpi F'.",
+      "expected_output": "Digest including both keyword-matched and author-tracked papers. Carpi F papers (if any in 3-day window) appear regardless of keyword match. Relevance scoring reflects wearable/EAP focus specifically. Papers from multiple keyword queries are deduplicated by arXiv ID.",
+      "files": [],
+      "expectations": [
+        "Author tracking query was run for Carpi F in addition to keyword queries",
+        "Results from multiple queries are deduplicated (same paper doesn't appear twice)",
+        "Relevance scoring reflects wearable soft robotics focus, not just keyword match",
+        "Date filter correctly limits to last 3 days"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run arxiv-monitor for dielectric elastomer actuators, lookback 1 day. If no papers found, handle the weekend gap correctly.",
+      "expected_output": "If no papers in 1-day window (weekend), automatically extend to 3 days and report. Output explains the extension. Does not silently return an empty result — explains why and what was done.",
+      "files": [],
+      "expectations": [
+        "arXiv API queried with 1-day lookback first",
+        "If zero results, automatically extends to 3-day window",
+        "Output explicitly states what happened (e.g., 'No papers found for 1-day window; extended to 3 days due to weekend gap')",
+        "Does not return empty result without explanation"
+      ]
+    }
+  ]
+}
