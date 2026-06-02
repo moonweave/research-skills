@@ -119,10 +119,19 @@ Honesty about what the testing does and doesn't show:
 
 - Each skill was checked against a no-skill baseline on **3 illustrative test cases** during development. This is **not a controlled benchmark** — it's n=1 per case, and run-to-run variance is real (contradiction-finder produced opposite verdicts on two runs of the same baseline).
 - The measured advantage is mostly **consistency and structured output** — the skill reliably applies the same discipline (verbatim sourcing, explicit uncertainty, conflict taxonomy) where an unaided model is hit-or-miss. There are some genuine capability catches (e.g. ref-verify flagging abstract content an unaided model embellished), but the suite's main value is reproducible discipline, not catching errors the base model never could.
-- **figure-verifier's image-reading path is under-tested.** Development test cases largely resolved via paper text/captions rather than reading values off a plot image. Treat figure-image precision as approximate and resolution-dependent.
+- **figure-verifier's image-reading path is the least-proven.** It has been validated end-to-end once (downloaded an arXiv figure PNG, read values off the pixels, with an anchoring guard against reading the caption) but figure-image precision is inherently approximate and resolution-dependent. Treat readings as approximate; low-resolution or cluttered plots should return UNREADABLE.
 - **Content verification degrades to UNVERIFIABLE where abstracts aren't openly deposited** — common in materials/polymer/engineering journals. The skills report this honestly rather than guessing, but it means the content layer is weakest in exactly those fields.
 
-If you want a defensible comparison for your own use, re-run with skills uninstalled for the baseline and ≥3 runs per case, scoring on outcome rather than output format.
+### Validated paths (single-run, post-hardening)
+
+After a review pass, four specific paths were each exercised once and behaved correctly:
+
+- arXiv/DataCite DOIs (`10.48550/*`) are not falsely flagged DEAD when CrossRef 404s (DataCite fallback works)
+- figure-verifier reads an actual figure image and fills a proof-of-vision line, rather than echoing the caption
+- abstract-absent papers (e.g. *Smart Materials and Structures*) return UNVERIFIABLE honestly while existence/metadata/DOI still verify
+- a same-material-system mechanism conflict is classified DIRECT, not escaped to SCOPE — and different-system pairs are not over-flagged
+
+These are n=1 confirmations that the paths work, not a statistical benchmark. If you want a defensible comparison for your own use, re-run with skills uninstalled for the baseline and ≥3 runs per case, scoring on outcome rather than output format.
 
 ---
 
