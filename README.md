@@ -1,142 +1,59 @@
 # groundcheck
 
-**Verification skills for academic research — every claim grounded in fetched evidence, never recalled from memory.**
-
-AI agent skills for researchers who can't afford a hallucinated citation, a misread figure, or an invented statistic. Install individually or all at once.
-
-Each skill targets a gap not covered by existing research software. Skills were checked on a handful of real-paper test cases during development (illustrative, not a controlled benchmark — see [Evaluation notes](#evaluation-notes)).
-
----
+Verification skills for academic research. The shared rule is simple: claims must be grounded in fetched evidence, with uncertainty stated explicitly when evidence is missing.
 
 ## Install
 
 ```bash
-# individual skill
+# one skill
 npx skills add moonweave/groundcheck@ref-verify -g
 
-# all skills (once available)
+# full suite
 npx skills add moonweave/groundcheck -g
 ```
 
-Works with **Claude Code, Cursor, Codex**, and any `npx skills` compatible agent.
-
----
+Works with Claude Code, Cursor, Codex, and other `npx skills` compatible agents.
 
 ## Skills
 
-### ref-verify — Citation hallucination prevention
-**Status: stable (v1.0.0)**
+| Skill | Use When | Status |
+| --- | --- | --- |
+| [`ref-verify`](ref-verify/SKILL.md) | Verify citations, DOIs, paper metadata, and whether a paper supports a specific claim. Topic claims can use abstracts; mechanism/implementation claims require full text and the checker gate. | stable |
+| [`arxiv-monitor`](arxiv-monitor/SKILL.md) | Monitor new arXiv papers by query, author, or watchlist and produce a filtered digest. | stable |
+| [`figure-verifier`](figure-verifier/SKILL.md) | Check whether a paper's text claims are actually supported by its figures. | beta |
+| [`contradiction-finder`](contradiction-finder/SKILL.md) | Compare claims across papers and surface direct, quantitative, or scope conflicts. | stable |
+| [`nrf-grant`](nrf-grant/SKILL.md) | Draft and review Korean NRF research-plan sections against NRF-style criteria. | stable |
 
-Prevents AI agents from citing papers with wrong DOIs, wrong authors, wrong year, or fabricated content. Every citation is verified live against CrossRef, Semantic Scholar, and PubMed. Every content claim is traced to a verbatim-fetched abstract — never recalled from training data.
+## Source Of Truth
 
-```bash
-npx skills add moonweave/groundcheck@ref-verify -g
-```
+`ref-verify` has its own canonical repository:
 
-**Real catches during testing:**
-- Abstract content described by AI that doesn't appear in the actual CrossRef record
-- DOI resolving to a completely different paper (different authors, different year)
-- "500% strain" in an abstract that referred to a measurement condition, not an actuation result
+- Canonical development repo: [`moonweave/ref-verify`](https://github.com/moonweave/ref-verify)
+- Suite mirror path: [`groundcheck/ref-verify`](ref-verify/)
 
-→ [README](ref-verify/SKILL.md) · [Standalone repo](https://github.com/moonweave/ref-verify)
+Develop `ref-verify` features in the standalone repo first, then mirror the same `SKILL.md`, `checker.py`, and tests into this suite before release. Groundcheck owns suite-level README, install routing, and cross-skill consistency.
 
----
+## Principles
 
-### arxiv-monitor — Daily arXiv briefing
-**Status: stable (v1.0.0)**
+- Fetch live sources instead of relying on model memory.
+- Quote or directly paraphrase the source text used for each content verdict.
+- Separate unsupported, contradicted, partial, and unverifiable states.
+- Keep each skill narrow enough that an agent can apply it reliably.
+- Treat missing evidence as a result, not a gap to fill with inference.
 
-Scheduled monitoring of new arXiv papers by keyword and author watchlist. LLM-based relevance scoring (1-5 tiers). Routable output to Slack, Obsidian, Telegram, or file. Built for Claude Code Routines. Auto-detects low-arXiv-coverage domains and falls back to Semantic Scholar.
+## Limits
 
-**Why build this:** Scholar Inbox handles passive email digests well. The gap is agent-native monitoring with custom filtering and routing that connects directly to your research workflow.
+- These are agent skills, not a controlled benchmark suite.
+- Figure reading is approximate and depends on image resolution and plot clarity.
+- Many materials, polymer, and engineering papers do not expose abstracts or full text openly. In those cases, content verification should degrade to `UNVERIFIABLE` or `ABSTRACT-LEVEL ONLY`, not guessed support.
 
-```bash
-npx skills add moonweave/groundcheck@arxiv-monitor -g
-```
+## Development Checks
 
-→ [SKILL.md](arxiv-monitor/SKILL.md)
-
----
-
-### figure-verifier — Text-vs-figure claim verification
-**Status: beta (v1.0.0)** — workflow and structured verdicts are solid; the figure-*image* reading path (VLM precision on dense plots) is resolution-dependent and under-tested. Treat readings as approximate.
-
-Reads numerical values from scientific figures, then cross-checks them against quantitative claims in the paper's text. Flags discrepancies, wrong figure pointers (value cited in the wrong figure number), and characterizes whether a figure is quantitative or photographic before reading.
-
-**Why build this:** WebPlotDigitizer and PlotPick extract data from figures. No existing tool — anywhere — verifies whether a paper's stated results are actually supported by its own figures. This is the figure equivalent of what ref-verify does for citations.
+For `ref-verify`:
 
 ```bash
-npx skills add moonweave/groundcheck@figure-verifier -g
+cd ref-verify
+python3 -m unittest tests/test_checker.py
 ```
 
-→ [SKILL.md](figure-verifier/SKILL.md)
-
----
-
-### contradiction-finder — Cross-paper conflict detection
-**Status: stable (v1.0.0)**
-
-Takes a set of papers (by DOI or search query), extracts atomic claims from abstracts, compares them pairwise, and surfaces conflicts (DIRECT / QUANTITATIVE / SCOPE) with verbatim evidence. Its core discipline: it does not infer a contradiction from a claim a paper's abstract doesn't actually make.
-
-**Why build this:** Scite detects contradictions at the citation-graph level but only reactively (you supply the claim). Elicit shows divergent values but doesn't call them out as conflicts. No tool proactively maps contradictions from a paper set.
-
-```bash
-npx skills add moonweave/groundcheck@contradiction-finder -g
-```
-
-→ [SKILL.md](contradiction-finder/SKILL.md)
-
----
-
-### nrf-grant — NRF 연구계획서 작성
-**Status: stable (v1.0.0)**
-
-한국연구재단(NRF) 연구계획서 작성 전용 스킬. 필요성·연구내용·활용방안 섹션 구조, 우수성·필요성·실현가능성·활용방안 4대 심사기준 정렬, 한국어 학술 문체, 과제 유형별(신진/중견/선도연구센터/BK21) 특이사항 반영.
-
-**Why build this:** NSF/NIH용 AI 도구는 포화 상태. NRF 형식을 지원하는 도구는 전 세계에 없음.
-
-```bash
-npx skills add moonweave/groundcheck@nrf-grant -g
-```
-
-→ [SKILL.md](nrf-grant/SKILL.md)
-
----
-
-## Design principles
-
-All skills in this collection follow the same rules:
-
-1. **Live verification over memory recall** — claims are grounded in fetched data, not training recall
-2. **Explicit uncertainty** — if something can't be verified, it says so instead of guessing
-3. **Narrow scope** — each skill does one thing well; no feature creep
-4. **Evidence in output** — every verdict includes the source and evidence that produced it
-
----
-
-## Evaluation notes
-
-Honesty about what the testing does and doesn't show:
-
-- Each skill was checked against a no-skill baseline on **3 illustrative test cases** during development. This is **not a controlled benchmark** — it's n=1 per case, and run-to-run variance is real (contradiction-finder produced opposite verdicts on two runs of the same baseline).
-- The measured advantage is mostly **consistency and structured output** — the skill reliably applies the same discipline (verbatim sourcing, explicit uncertainty, conflict taxonomy) where an unaided model is hit-or-miss. There are some genuine capability catches (e.g. ref-verify flagging abstract content an unaided model embellished), but the suite's main value is reproducible discipline, not catching errors the base model never could.
-- **figure-verifier's image-reading path is the least-proven.** It has been validated end-to-end once (downloaded an arXiv figure PNG, read values off the pixels, with an anchoring guard against reading the caption) but figure-image precision is inherently approximate and resolution-dependent. Treat readings as approximate; low-resolution or cluttered plots should return UNREADABLE.
-- **Content verification degrades to UNVERIFIABLE where abstracts aren't openly deposited** — common in materials/polymer/engineering journals. The skills report this honestly rather than guessing, but it means the content layer is weakest in exactly those fields.
-
-### Validated paths (single-run, post-hardening)
-
-After a review pass, four specific paths were each exercised once and behaved correctly:
-
-- arXiv/DataCite DOIs (`10.48550/*`) are not falsely flagged DEAD when CrossRef 404s (DataCite fallback works)
-- figure-verifier reads an actual figure image and fills a proof-of-vision line, rather than echoing the caption
-- abstract-absent papers (e.g. *Smart Materials and Structures*) return UNVERIFIABLE honestly while existence/metadata/DOI still verify
-- a same-material-system mechanism conflict is classified DIRECT, not escaped to SCOPE — and different-system pairs are not over-flagged
-
-These are n=1 confirmations that the paths work, not a statistical benchmark. If you want a defensible comparison for your own use, re-run with skills uninstalled for the baseline and ≥3 runs per case, scoring on outcome rather than output format.
-
----
-
-## Related
-
-- [moonweave/ref-verify](https://github.com/moonweave/ref-verify) — standalone repo for ref-verify (v1.0.0, stable)
-- [moonweave/anneal-skill](https://github.com/moonweave/anneal-skill) — measure-first decision discipline
-- [Moon-python/decide-skill](https://github.com/Moon-python/decide-skill) — decision automation for non-expert domains
+Before changing a mirrored skill, confirm whether that skill has a standalone canonical repo. If it does, update the canonical repo first and mirror the result here.
