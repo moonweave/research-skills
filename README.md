@@ -27,7 +27,7 @@ Works with **Claude Code, Cursor, Codex**, and any `npx skills` compatible agent
 ### ref-verify — Citation hallucination prevention
 **Status: stable (v1.0.0)**
 
-Prevents AI agents from citing papers with wrong DOIs, wrong authors, wrong year, or fabricated content. Every citation is verified live against CrossRef, Semantic Scholar, and PubMed. Every content claim is traced to a verbatim-fetched abstract — never recalled from training data.
+Prevents AI agents from citing papers with wrong DOIs, wrong authors, wrong year, or fabricated content. Every citation is verified live against CrossRef, Semantic Scholar, and PubMed. Topic-level content claims are traced to fetched abstracts; mechanism/implementation claims require full text and a deterministic checker gate.
 
 ```bash
 npx skills add moonweave/groundcheck@ref-verify -g
@@ -38,7 +38,7 @@ npx skills add moonweave/groundcheck@ref-verify -g
 - DOI resolving to a completely different paper (different authors, different year)
 - "500% strain" in an abstract that referred to a measurement condition, not an actuation result
 
-→ [README](ref-verify/SKILL.md) · [Standalone repo](https://github.com/moonweave/ref-verify)
+→ [README](ref-verify/SKILL.md) · [Canonical standalone repo](https://github.com/moonweave/ref-verify)
 
 ---
 
@@ -120,7 +120,7 @@ Honesty about what the testing does and doesn't show:
 - Each skill was checked against a no-skill baseline on **3 illustrative test cases** during development. This is **not a controlled benchmark** — it's n=1 per case, and run-to-run variance is real (contradiction-finder produced opposite verdicts on two runs of the same baseline).
 - The measured advantage is mostly **consistency and structured output** — the skill reliably applies the same discipline (verbatim sourcing, explicit uncertainty, conflict taxonomy) where an unaided model is hit-or-miss. There are some genuine capability catches (e.g. ref-verify flagging abstract content an unaided model embellished), but the suite's main value is reproducible discipline, not catching errors the base model never could.
 - **figure-verifier's image-reading path is the least-proven.** It has been validated end-to-end once (downloaded an arXiv figure PNG, read values off the pixels, with an anchoring guard against reading the caption) but figure-image precision is inherently approximate and resolution-dependent. Treat readings as approximate; low-resolution or cluttered plots should return UNREADABLE.
-- **Content verification degrades to UNVERIFIABLE where abstracts aren't openly deposited** — common in materials/polymer/engineering journals. The skills report this honestly rather than guessing, but it means the content layer is weakest in exactly those fields.
+- **Content verification degrades where source text is not openly deposited** — abstracts are sufficient only for topic-level claims. Materials/polymer/engineering mechanism claims often require full text; if it cannot be fetched, ref-verify reports `ABSTRACT-LEVEL ONLY` or `UNVERIFIABLE` rather than guessing.
 
 ### Validated paths (single-run, post-hardening)
 
@@ -137,6 +137,6 @@ These are n=1 confirmations that the paths work, not a statistical benchmark. If
 
 ## Related
 
-- [moonweave/ref-verify](https://github.com/moonweave/ref-verify) — standalone repo for ref-verify (v1.0.0, stable)
+- [moonweave/ref-verify](https://github.com/moonweave/ref-verify) — canonical standalone repo for ref-verify (groundcheck mirrors it for suite installs)
 - [moonweave/anneal-skill](https://github.com/moonweave/anneal-skill) — measure-first decision discipline
 - [Moon-python/decide-skill](https://github.com/Moon-python/decide-skill) — decision automation for non-expert domains
