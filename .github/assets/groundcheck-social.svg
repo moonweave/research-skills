@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640">
+  <defs>
+    <radialGradient id="bg" cx="22%" cy="20%" r="90%">
+      <stop offset="0" stop-color="#064e3b"/>
+      <stop offset="0.55" stop-color="#0b1320"/>
+      <stop offset="1" stop-color="#05070f"/>
+    </radialGradient>
+    <linearGradient id="g" x1="150" y1="520" x2="480" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d6f5e3"/>
+      <stop offset="0.52" stop-color="#39c5cf"/>
+      <stop offset="1" stop-color="#2ea043"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" rx="56" fill="url(#bg)"/>
+  <g transform="translate(128 112) scale(.82)">
+    <path d="M144 92h202l70 70v258H144z" fill="#f0f6fc"/>
+    <path d="M346 92v76h70" fill="none" stroke="#7aa99b" stroke-width="18" stroke-linejoin="round"/>
+    <path d="M198 212h162M198 274h186M198 336h108" stroke="#1f6f5b" stroke-width="22" stroke-linecap="round" opacity="0.75"/>
+    <circle cx="348" cy="352" r="82" fill="#08151b" stroke="url(#g)" stroke-width="20"/>
+    <path d="M306 352l34 34 68-84" fill="none" stroke="#d6f5e3" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M84 430h344" stroke="#2ea043" stroke-width="18" stroke-linecap="round" opacity="0.7"/>
+  </g>
+  <text x="560" y="250" fill="#f0f6fc" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="800">groundcheck</text>
+  <text x="564" y="324" fill="#b7d6cc" font-family="Inter, Arial, sans-serif" font-size="34">Verification skills for academic research</text>
+  <text x="564" y="392" fill="#56d364" font-family="Inter, Arial, sans-serif" font-size="28">claims grounded in fetched evidence</text>
+</svg>

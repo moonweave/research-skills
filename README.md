@@ -1,3 +1,9 @@
+<div align="center">
+
+<img src=".github/assets/groundcheck-mark.svg" alt="groundcheck mark" width="96">
+
+</div>
+
 # groundcheck
 
 **Verification skills for academic research — every claim grounded in fetched evidence, never recalled from memory.**
@@ -12,10 +18,10 @@ Each skill targets a gap not covered by existing research software. Skills were 
 
 ```bash
 # individual skill
-npx skills add moonweave/groundcheck@ref-verify -g
+npx skills add Moonweave-Research/groundcheck@ref-verify -g
 
 # all skills (once available)
-npx skills add moonweave/groundcheck -g
+npx skills add Moonweave-Research/groundcheck -g
 ```
 
 Works with **Claude Code, Cursor, Codex**, and any `npx skills` compatible agent.
@@ -30,7 +36,7 @@ Works with **Claude Code, Cursor, Codex**, and any `npx skills` compatible agent
 Prevents AI agents from citing papers with wrong DOIs, wrong authors, wrong year, or fabricated content. Every citation is verified live against CrossRef, Semantic Scholar, and PubMed. Every content claim is traced to a verbatim-fetched abstract — never recalled from training data.
 
 ```bash
-npx skills add moonweave/groundcheck@ref-verify -g
+npx skills add Moonweave-Research/groundcheck@ref-verify -g
 ```
 
 **Real catches during testing:**
@@ -38,7 +44,7 @@ npx skills add moonweave/groundcheck@ref-verify -g
 - DOI resolving to a completely different paper (different authors, different year)
 - "500% strain" in an abstract that referred to a measurement condition, not an actuation result
 
-→ [README](ref-verify/SKILL.md) · [Standalone repo](https://github.com/moonweave/ref-verify)
+→ [README](ref-verify/SKILL.md) · [Standalone repo](https://github.com/Moonweave-Research/ref-verify)
 
 ---
 
@@ -50,7 +56,7 @@ Scheduled monitoring of new arXiv papers by keyword and author watchlist. LLM-ba
 **Why build this:** Scholar Inbox handles passive email digests well. The gap is agent-native monitoring with custom filtering and routing that connects directly to your research workflow.
 
 ```bash
-npx skills add moonweave/groundcheck@arxiv-monitor -g
+npx skills add Moonweave-Research/groundcheck@arxiv-monitor -g
 ```
 
 → [SKILL.md](arxiv-monitor/SKILL.md)
@@ -65,7 +71,7 @@ Reads numerical values from scientific figures, then cross-checks them against q
 **Why build this:** WebPlotDigitizer and PlotPick extract data from figures. No existing tool — anywhere — verifies whether a paper's stated results are actually supported by its own figures. This is the figure equivalent of what ref-verify does for citations.
 
 ```bash
-npx skills add moonweave/groundcheck@figure-verifier -g
+npx skills add Moonweave-Research/groundcheck@figure-verifier -g
 ```
 
 → [SKILL.md](figure-verifier/SKILL.md)
@@ -80,7 +86,7 @@ Takes a set of papers (by DOI or search query), extracts atomic claims from abst
 **Why build this:** Scite detects contradictions at the citation-graph level but only reactively (you supply the claim). Elicit shows divergent values but doesn't call them out as conflicts. No tool proactively maps contradictions from a paper set.
 
 ```bash
-npx skills add moonweave/groundcheck@contradiction-finder -g
+npx skills add Moonweave-Research/groundcheck@contradiction-finder -g
 ```
 
 → [SKILL.md](contradiction-finder/SKILL.md)
@@ -95,7 +101,7 @@ npx skills add moonweave/groundcheck@contradiction-finder -g
 **Why build this:** NSF/NIH용 AI 도구는 포화 상태. NRF 형식을 지원하는 도구는 전 세계에 없음.
 
 ```bash
-npx skills add moonweave/groundcheck@nrf-grant -g
+npx skills add Moonweave-Research/groundcheck@nrf-grant -g
 ```
 
 → [SKILL.md](nrf-grant/SKILL.md)
@@ -137,6 +143,6 @@ These are n=1 confirmations that the paths work, not a statistical benchmark. If
 
 ## Related
 
-- [moonweave/ref-verify](https://github.com/moonweave/ref-verify) — standalone repo for ref-verify (v1.0.0, stable)
-- [moonweave/anneal-skill](https://github.com/moonweave/anneal-skill) — measure-first decision discipline
-- [Moon-python/decide-skill](https://github.com/Moon-python/decide-skill) — decision automation for non-expert domains
+- [Moonweave-Research/ref-verify](https://github.com/Moonweave-Research/ref-verify) — standalone repo for ref-verify (v1.0.0, stable)
+- [Moonweave-Systems/anneal-skill](https://github.com/Moonweave-Systems/anneal-skill) — measure-first decision discipline
+- [Moonweave-Systems/decide-skill](https://github.com/Moonweave-Systems/decide-skill) — decision automation for non-expert domains

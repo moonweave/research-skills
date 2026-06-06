@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">groundcheck mark</title>
+  <desc id="desc">An evidence document anchored by a verification stamp.</desc>
+  <defs>
+    <linearGradient id="g" x1="116" y1="424" x2="410" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d6f5e3"/>
+      <stop offset="0.52" stop-color="#39c5cf"/>
+      <stop offset="1" stop-color="#2ea043"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="#08151b"/>
+  <path d="M144 92h202l70 70v258H144z" fill="#f0f6fc"/>
+  <path d="M346 92v76h70" fill="none" stroke="#7aa99b" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M198 212h162M198 274h186M198 336h108" stroke="#1f6f5b" stroke-width="22" stroke-linecap="round" opacity="0.75"/>
+  <circle cx="348" cy="352" r="82" fill="#08151b" stroke="url(#g)" stroke-width="20"/>
+  <path d="M306 352l34 34 68-84" fill="none" stroke="#d6f5e3" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M84 430h344" stroke="#2ea043" stroke-width="18" stroke-linecap="round" opacity="0.7"/>
+</svg>
