@@ -1,26 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640">
-  <defs>
-    <radialGradient id="bg" cx="22%" cy="20%" r="90%">
-      <stop offset="0" stop-color="#064e3b"/>
-      <stop offset="0.55" stop-color="#0b1320"/>
-      <stop offset="1" stop-color="#05070f"/>
-    </radialGradient>
-    <linearGradient id="g" x1="150" y1="520" x2="480" y2="140" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#d6f5e3"/>
-      <stop offset="0.52" stop-color="#39c5cf"/>
-      <stop offset="1" stop-color="#2ea043"/>
-    </linearGradient>
-  </defs>
-  <rect width="1280" height="640" rx="56" fill="url(#bg)"/>
-  <g transform="translate(128 112) scale(.82)">
-    <path d="M144 92h202l70 70v258H144z" fill="#f0f6fc"/>
-    <path d="M346 92v76h70" fill="none" stroke="#7aa99b" stroke-width="18" stroke-linejoin="round"/>
-    <path d="M198 212h162M198 274h186M198 336h108" stroke="#1f6f5b" stroke-width="22" stroke-linecap="round" opacity="0.75"/>
-    <circle cx="348" cy="352" r="82" fill="#08151b" stroke="url(#g)" stroke-width="20"/>
-    <path d="M306 352l34 34 68-84" fill="none" stroke="#d6f5e3" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M84 430h344" stroke="#2ea043" stroke-width="18" stroke-linecap="round" opacity="0.7"/>
+  <rect width="1280" height="640" fill="#f7f8fa"/>
+  <path d="M80 80h1120v480H80z" fill="#ffffff" stroke="#d9dee8" stroke-width="2"/>
+  <path d="M120 128h1040M120 512h1040" stroke="#e6eaf0" stroke-width="2"/>
+  <text x="120" y="134" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="22" letter-spacing="0">Moonweave Research</text>
+  <g transform="translate(124 154) scale(.82)">
+    <path d="M142 86h214l72 72v268H142z" fill="#ffffff" stroke="#1f2937" stroke-width="18" stroke-linejoin="round"/>
+    <path d="M356 86v80h72" fill="none" stroke="#9aa3af" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M194 216h156M194 270h190M194 324h124" stroke="#667085" stroke-width="18" stroke-linecap="round"/>
+    <path d="M96 426h320" stroke="#2f6f5f" stroke-width="16" stroke-linecap="round"/>
+    <path d="M118 384c70-48 126-54 184-20 54 32 96 24 150-34" fill="none" stroke="#2f6f5f" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="118" cy="384" r="14" fill="#ffffff" stroke="#2f6f5f" stroke-width="8"/>
+    <circle cx="302" cy="364" r="12" fill="#ffffff" stroke="#2f6f5f" stroke-width="8"/>
+    <circle cx="452" cy="330" r="14" fill="#ffffff" stroke="#2f6f5f" stroke-width="8"/>
   </g>
-  <text x="560" y="250" fill="#f0f6fc" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="800">groundcheck</text>
-  <text x="564" y="324" fill="#b7d6cc" font-family="Inter, Arial, sans-serif" font-size="34">Verification skills for academic research</text>
-  <text x="564" y="392" fill="#56d364" font-family="Inter, Arial, sans-serif" font-size="28">claims grounded in fetched evidence</text>
+  <text x="560" y="260" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="760">groundcheck</text>
+  <text x="564" y="326" fill="#4b5563" font-family="Inter, Arial, sans-serif" font-size="32">Verification skills for academic research</text>
+  <text x="564" y="388" fill="#2f6f5f" font-family="Inter, Arial, sans-serif" font-size="24">claims grounded in fetched evidence</text>
+  <path d="M564 440h360" stroke="#d9dee8" stroke-width="2"/>
 </svg>

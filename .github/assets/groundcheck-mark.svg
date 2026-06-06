@@ -1,18 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">groundcheck mark</title>
-  <desc id="desc">An evidence document anchored by a verification stamp.</desc>
-  <defs>
-    <linearGradient id="g" x1="116" y1="424" x2="410" y2="116" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#d6f5e3"/>
-      <stop offset="0.52" stop-color="#39c5cf"/>
-      <stop offset="1" stop-color="#2ea043"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="116" fill="#08151b"/>
-  <path d="M144 92h202l70 70v258H144z" fill="#f0f6fc"/>
-  <path d="M346 92v76h70" fill="none" stroke="#7aa99b" stroke-width="18" stroke-linejoin="round"/>
-  <path d="M198 212h162M198 274h186M198 336h108" stroke="#1f6f5b" stroke-width="22" stroke-linecap="round" opacity="0.75"/>
-  <circle cx="348" cy="352" r="82" fill="#08151b" stroke="url(#g)" stroke-width="20"/>
-  <path d="M306 352l34 34 68-84" fill="none" stroke="#d6f5e3" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M84 430h344" stroke="#2ea043" stroke-width="18" stroke-linecap="round" opacity="0.7"/>
+  <desc id="desc">A grounded evidence document with source lines.</desc>
+  <path d="M142 86h214l72 72v268H142z" fill="#ffffff" stroke="#1f2937" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M356 86v80h72" fill="none" stroke="#9aa3af" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M194 216h156M194 270h190M194 324h124" stroke="#667085" stroke-width="18" stroke-linecap="round"/>
+  <path d="M96 426h320" stroke="#2f6f5f" stroke-width="16" stroke-linecap="round"/>
+  <path d="M118 384c70-48 126-54 184-20 54 32 96 24 150-34" fill="none" stroke="#2f6f5f" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="118" cy="384" r="14" fill="#ffffff" stroke="#2f6f5f" stroke-width="8"/>
+  <circle cx="302" cy="364" r="12" fill="#ffffff" stroke="#2f6f5f" stroke-width="8"/>
+  <circle cx="452" cy="330" r="14" fill="#ffffff" stroke="#2f6f5f" stroke-width="8"/>
 </svg>
