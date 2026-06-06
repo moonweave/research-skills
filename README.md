@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".github/assets/groundcheck-mark.svg" alt="groundcheck mark" width="96">
+<img src=".github/assets/groundcheck-mark-512.png" alt="groundcheck mark" width="96">
 
 </div>
 
